@@ -139,6 +139,6 @@ python manage.py check
 4. **Validaciones:** Confirmación de eliminación y manejo de errores
 
 ## 👨‍💻 Desarrollado por
-**Alumno:** [Tu nombre]  
+**Alumno:** Robledo Ramirez Jorge Rafael 
 **Materia:** Desarrollo de Aplicaciones Móviles  
 **Examen 2:** Aplicación Web ToDo con Django
