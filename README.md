@@ -140,6 +140,5 @@ python manage.py check
 
 ## 👨‍💻 Desarrollado por
 **Alumno:** Robledo Ramirez Jorge Rafael
-
 **Materia:** Desarrollo de Aplicaciones Móviles  
 **Examen 2:** Aplicación Web ToDo con Django
