@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pendientes Resueltos</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .nav-links { margin: 20px 0; }
+        .nav-links a { margin-right: 15px; text-decoration: none; color: #007bff; }
+        .nav-links a:hover { text-decoration: underline; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #d1edff; margin: 5px 0; padding: 15px; border-radius: 5px; border-left: 4px solid #28a745; }
+        .actions { margin-top: 10px; }
+        .actions a { margin-right: 10px; padding: 5px 10px; text-decoration: none; border-radius: 3px; }
+        .edit-btn { background: #007bff; color: white; }
+        .delete-btn { background: #dc3545; color: white; }
+        .completed { color: #28a745; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Lista de Pendientes Resueltos (ID + Título)</h2>
+    
+    <div class="nav-links">
+        <a href="{% url 'list_ids' %}">1. Solo IDs</a>
+        <a href="{% url 'list_id_titles' %}">2. IDs + Títulos</a>
+        <a href="{% url 'list_unresolved' %}">3. Sin Resolver</a>
+        <strong>4. Resueltos (actual)</strong>
+        <a href="{% url 'list_id_user' %}">5. IDs + Usuario</a>
+        <a href="{% url 'list_resolved_user' %}">6. Resueltos + Usuario</a>
+        <a href="{% url 'list_unresolved_user' %}">7. Sin Resolver + Usuario</a>
+        <a href="{% url 'create_todo' %}">➕ Crear Nuevo</a>
+    </div>
+
+    <ul>
+        {% for todo in todos %}
+            <li>
+                <strong>ID:</strong> {{ todo.id }} - <strong>Título:</strong> {{ todo.title }}
+                <br><small><strong>Usuario:</strong> {{ todo.user.username }} - <span class="completed">✓ COMPLETADO</span></small>
+                <div class="actions">
+                    <a href="{% url 'update_todo' todo.id %}" class="edit-btn">Editar</a>
+                    <a href="{% url 'delete_todo' todo.id %}" class="delete-btn" onclick="return confirm('¿Estás seguro?')">Eliminar</a>
+                </div>
+            </li>
+        {% empty %}
+            <li>No hay pendientes resueltos.</li>
+        {% endfor %}
+    </ul>
+
+    <p><strong>Total resueltos:</strong> {{ todos|length }}</p>
+</body>
+</html>

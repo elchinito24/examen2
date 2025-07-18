@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de IDs</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .nav-links { margin: 20px 0; }
+        .nav-links a { margin-right: 15px; text-decoration: none; color: #007bff; }
+        .nav-links a:hover { text-decoration: underline; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #f8f9fa; margin: 5px 0; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Lista de Pendientes (Solo IDs)</h2>
+    
+    <div class="nav-links">
+        <strong>1. Solo IDs (actual)</strong>
+        <a href="{% url 'list_id_titles' %}">2. IDs + Títulos</a>
+        <a href="{% url 'list_unresolved' %}">3. Sin Resolver</a>
+        <a href="{% url 'list_resolved' %}">4. Resueltos</a>
+        <a href="{% url 'list_id_user' %}">5. IDs + Usuario</a>
+        <a href="{% url 'list_resolved_user' %}">6. Resueltos + Usuario</a>
+        <a href="{% url 'list_unresolved_user' %}">7. Sin Resolver + Usuario</a>
+        <a href="{% url 'create_todo' %}">➕ Crear Nuevo</a>
+    </div>
+
+    <ul>
+        {% for todo_id in todos %}
+            <li>ID: {{ todo_id }}</li>
+        {% empty %}
+            <li>No hay pendientes registrados.</li>
+        {% endfor %}
+    </ul>
+
+    <p><strong>Total de pendientes:</strong> {{ todos|length }}</p>
+</body>
+</html>

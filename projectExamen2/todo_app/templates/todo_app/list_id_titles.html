@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Pendientes - IDs y Títulos</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .nav-links { margin: 20px 0; }
+        .nav-links a { margin-right: 15px; text-decoration: none; color: #007bff; }
+        .nav-links a:hover { text-decoration: underline; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #f8f9fa; margin: 5px 0; padding: 15px; border-radius: 5px; border-left: 4px solid #6c757d; }
+        .status { font-weight: bold; }
+        .resolved { color: #28a745; }
+        .unresolved { color: #ffc107; }
+        .actions { margin-top: 10px; }
+        .actions a { margin-right: 10px; padding: 5px 10px; text-decoration: none; border-radius: 3px; }
+        .edit-btn { background: #007bff; color: white; }
+        .delete-btn { background: #dc3545; color: white; }
+        .btn-create {
+            background: #28a745; 
+            color: white; 
+            text-decoration: none; 
+            padding: 5px 10px; 
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Lista de Pendientes (ID + Título)</h2>
+    
+    <div class="nav-links">
+        <a href="{% url 'list_ids' %}">1. Solo IDs</a>
+        <strong>2. IDs + Títulos (actual)</strong>
+        <a href="{% url 'list_unresolved' %}">3. Sin Resolver</a>
+        <a href="{% url 'list_resolved' %}">4. Resueltos</a>
+        <a href="{% url 'list_id_user' %}">5. IDs + Usuario</a>
+        <a href="{% url 'list_resolved_user' %}">6. Resueltos + Usuario</a>
+        <a href="{% url 'list_unresolved_user' %}">7. Sin Resolver + Usuario</a>
+        <a id="btn-create"href="{% url 'create_todo' %}">➕ Crear Nuevo</a>
+    </div>
+
+    <ul>
+        {% for todo in todos %}
+            <li>
+                <strong>ID:</strong> {{ todo.id }} - <strong>Título:</strong> {{ todo.title }}
+                <br><small><strong>Usuario:</strong> {{ todo.user.username }}</small>
+                <br><small class="status {% if todo.resolved %}resolved{% else %}unresolved{% endif %}">
+                    Estado: {% if todo.resolved %}✓ Resuelto{% else %}⏳ Pendiente{% endif %}
+                </small>
+                <div class="actions">
+                    <a href="{% url 'update_todo' todo.id %}" class="edit-btn">Editar</a>
+                    <a href="{% url 'delete_todo' todo.id %}" class="delete-btn" onclick="return confirm('¿Estás seguro?')">Eliminar</a>
+                </div>
+            </li>
+        {% empty %}
+            <li>No hay pendientes registrados.</li>
+        {% endfor %}
+    </ul>
+
+    <p><strong>Total de pendientes:</strong> {{ todos|length }}</p>
+</body>
+</html>
